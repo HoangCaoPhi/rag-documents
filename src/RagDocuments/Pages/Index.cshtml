@@ -1,0 +1,20 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Chat AI";
+}
+
+<h2>Chat với AI</h2>
+
+<form method="post">
+    <label for="question">Nhập câu hỏi:</label>
+    <input type="text" id="question" name="Question" class="form-control" required />
+    <button type="submit" class="btn btn-primary mt-2">Gửi</button>
+</form>
+
+@if (Model.Response != null)
+{
+    <div class="alert alert-info mt-3">
+        <strong>AI:</strong> @Model.Response
+    </div>
+}

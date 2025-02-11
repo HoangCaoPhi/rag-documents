@@ -1,0 +1,30 @@
+services:
+  ragdocuments:
+    image: ${DOCKER_REGISTRY-}ragdocuments
+    build:
+      context: src/RagDocuments
+      dockerfile: Dockerfile
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+        - 11434:11434
+    volumes:
+        - ./ollama/ollama:/root/.ollama
+        - ./download_model.sh:/download_model.sh
+    container_name: ollama
+    pull_policy: always
+    tty: true
+    restart: always
+    entrypoint: ["/usr/bin/bash", "/download_model.sh"]
+ 
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+volumes:
+  ollama_data:
+ 
