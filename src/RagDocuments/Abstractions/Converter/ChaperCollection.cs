@@ -1,4 +1,4 @@
-﻿namespace RagDocuments.Models;
+﻿namespace RagDocuments.Abstractions.Converter;
 
 public sealed class ChapterCollection(IEnumerable<Chapter> chapters)
 {

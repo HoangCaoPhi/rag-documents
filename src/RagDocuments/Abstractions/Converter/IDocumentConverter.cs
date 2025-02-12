@@ -1,6 +1,4 @@
-﻿using RagDocuments.Models;
-
-namespace RagDocuments.Abstractions;
+﻿namespace RagDocuments.Abstractions.Converter;
 
 public interface IDocumentConverter
 {

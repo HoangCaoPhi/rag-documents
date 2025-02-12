@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.DataProtection;
 using RagDocuments;
-using RagDocuments.Abstractions;
+using RagDocuments.Abstractions.VectorStores;
 
 var builder = WebApplication.CreateBuilder(args);
  
@@ -12,6 +12,7 @@ builder.Services.AddDataProtection()
 
 builder.Services.ConfigureSettings();
 builder.Services.ConfigureServices();
+builder.Services.ConfigureQdrant(builder.Configuration);
 
 var app = builder.Build();
  

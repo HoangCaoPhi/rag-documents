@@ -1,4 +1,4 @@
-﻿namespace RagDocuments.Models;
+﻿namespace RagDocuments.Abstractions.Converter;
 
 public class Page
 {

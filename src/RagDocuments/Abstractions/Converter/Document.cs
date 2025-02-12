@@ -1,4 +1,4 @@
-﻿namespace RagDocuments.Models;
+﻿namespace RagDocuments.Abstractions.Converter;
 
 public record Document(
     string Title,

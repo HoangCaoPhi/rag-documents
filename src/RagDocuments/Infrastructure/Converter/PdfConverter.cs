@@ -1,5 +1,4 @@
-﻿using RagDocuments.Abstractions;
-using RagDocuments.Models;
+﻿using RagDocuments.Abstractions.Converter;
 using UglyToad.PdfPig;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 using UglyToad.PdfPig.Outline;
