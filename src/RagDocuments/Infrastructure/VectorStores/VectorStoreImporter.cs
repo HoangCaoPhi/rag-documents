@@ -4,6 +4,7 @@ using Microsoft.SemanticKernel.Text;
 using RagDocuments.Abstractions.Converter;
 using RagDocuments.Abstractions.VectorStores;
 using RagDocuments.Infrastructure.Options;
+using RagDocuments.Models.Documents;
 
 namespace RagDocuments.Infrastructure.VectorStores;
 
@@ -13,6 +14,7 @@ namespace RagDocuments.Infrastructure.VectorStores;
 public class VectorStoreImporter(
     IDocumentConverter documentConverter,
     ITextEmbeddingGenerationService textEmbeddingGenerationService,
+    IDocumentVectorRepository documentVectorRepository,
     IOptions<DocumentOptions> documentOptions
     ) : IVectorStoreImporter
 {
@@ -26,9 +28,9 @@ public class VectorStoreImporter(
 
         var pages = documentInfo.Pages;
 
-        List<Document> documents = [];
+        List<Models.Documents.Document> documents = [];
 
-        int index = 0;
+        int bookIndex = 0;
         foreach (var page in pages)
         {
             var paragraphs = TextChunker.SplitPlainTextParagraphs(
@@ -39,11 +41,31 @@ public class VectorStoreImporter(
 
             paragraphs = paragraphs.Select(x => x.Replace("-\n", " ")).ToList();
 
-            var contentEmbeddings = textEmbeddingGenerationService.GenerateEmbeddingsAsync(
+            var contentEmbeddings = await textEmbeddingGenerationService.GenerateEmbeddingsAsync(
                 paragraphs
             );
 
+            foreach (var (index, paragraph) in paragraphs.Select((x, index) => (index, x)))
+            {
+                var embedding = contentEmbeddings[index];
 
+                var document = Models.Documents.Document.Create(
+                    Guid.CreateVersion7(),
+                    documentInfo.Title,
+                    documentInfo.ChapterPath.ByPageNumber(page.PageNumber),
+                    page.PageNumber,
+                    bookIndex,
+                    paragraph,
+                    embedding
+                );
+
+                documents.Add(document);
+                bookIndex++;
+            }
         }
+
+
+        await documentVectorRepository.UpsertItems([.. documents]);
+
     }
 }

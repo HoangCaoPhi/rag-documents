@@ -2,7 +2,7 @@ services:
   ragdocuments:
     image: ${DOCKER_REGISTRY-}ragdocuments
     build:
-      context: src/RagDocuments
+      context: ../../src/RagDocuments
       dockerfile: Dockerfile
 
   ollama:

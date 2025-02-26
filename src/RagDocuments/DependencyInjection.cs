@@ -27,14 +27,14 @@ public static class DependencyInjection
     {
         services.AddScoped<IDocumentConverter, PdfConverter>();
         services.AddScoped<IVectorStoreImporter, VectorStoreImporter>();
-        services.AddScoped<IDocumentVector, DocumentVector>();
+        services.AddScoped<IDocumentVectorRepository, DocumentVectorRepository>();
     }
 
     public static void ConfigureQdrant(this IServiceCollection services,
         IConfiguration configuration)
     {
         QdrantOptions qdrantOptions = configuration.Get<QdrantOptions>()!;
-        services.AddSingleton(sp => new QdrantClient(qdrantOptions.BaseUrl));
-        services.AddQdrantVectorStore();
+        services.AddSingleton(sp => new QdrantClient("qdrant"));
+        services.AddQdrantVectorStore(); 
     }
 }

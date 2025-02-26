@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagDocuments", "src\RagDocuments\RagDocuments.csproj", "{0BC01EC6-65BB-40FD-BCCB-7B31A8B6C0A0}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D9D13EBE-FB80-4612-BA88-8300812B93BB}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "src\Compose\docker-compose.dcproj", "{D9D13EBE-FB80-4612-BA88-8300812B93BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
