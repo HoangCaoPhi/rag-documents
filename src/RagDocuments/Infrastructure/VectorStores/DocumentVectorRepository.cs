@@ -1,9 +1,13 @@
 ﻿using Microsoft.Extensions.VectorData;
+using Microsoft.SemanticKernel.Embeddings;
 using RagDocuments.Models.Documents;
 
 namespace RagDocuments.Infrastructure.VectorStores;
 
-public class DocumentVectorRepository(IVectorStore vectorStore) : IDocumentVectorRepository   
+#pragma warning disable SKEXP0001 // For ITextEmbeddingGenerationService
+public class DocumentVectorRepository(
+    IVectorStore vectorStore,    
+    ITextEmbeddingGenerationService textEmbeddingGenerationService) : IDocumentVectorRepository 
 {
     private static VectorStoreRecordDefinition a = SetupVectorStoreRecordDefinition();
     private readonly IVectorStoreRecordCollection<ulong, Document> _collections = vectorStore.GetCollection<ulong, Document>("documents", a);
@@ -48,5 +52,19 @@ public class DocumentVectorRepository(IVectorStore vectorStore) : IDocumentVecto
         {
             keys.Add(key);
         }
+    }
+
+    public async Task<VectorSearchResults<Document>> SearchDocument(string query)
+    {
+        var searchVector = await textEmbeddingGenerationService.GenerateEmbeddingAsync(query);
+
+        var collection = await GetCollection();
+
+        var searchResult = await collection.VectorizedSearchAsync(
+            searchVector,
+            new VectorSearchOptions { Top = 10, IncludeVectors = false }
+        );
+
+        return searchResult;
     }
 }

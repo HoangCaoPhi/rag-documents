@@ -11,12 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.VectorData.Abstractions" Version="9.0.0-preview.1.25078.1" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.36.1" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.37.0-alpha" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.36.1-preview" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="PdfPig" Version="0.1.10-alpha-20250209-1660c" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.0.18" />
   </ItemGroup>
 
   <ItemGroup>
